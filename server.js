@@ -16,13 +16,10 @@ app.use((req, res, next) => {
 });
 
 app.post("/", async (req, res) => {
-  var data = {
-    name: "kk",
-    email: "john.doe@example.com",
-    age: 30,
-  };
-  await db.collection("users").doc().set(data);
-  res.send("done");
+  var data = req.body;
+  const users = db.collection("users").doc();
+  await users.set(data);
+  res.send(users.id);
 });
 
 app.listen(4000, () => {
